@@ -1,75 +1,674 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adam & Martin Prod</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adam &amp; Martin Prod</title>
+  <meta name="description" content="Vidéastes et photographes professionnels basés à Colmar. Films corporate, publicités, événements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#010118; --surf:#040431; --bord:rgba(255,255,255,.08);
+      --txt:#e8e2d9; --muted:rgb(255, 255, 255);
+      --acc:#ffffff; --acc2:#5517d2;
+      --disp:'Cormorant Garamond',Georgia,serif;
+      --body:'DM Sans',sans-serif;
+      --ease:cubic-bezier(.16,1,.3,1);
+      --maxw:1280px; --navh:72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--txt);font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden}
+    img{display:block;max-width:100%}
+    a{color:inherit;text-decoration:none}
+    button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+    ul{list-style:none}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--acc2);border-radius:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+    .lbl{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:1.25rem}
+    .lbl::before{content:'';width:24px;height:1px;background:var(--acc)}
+    .dtitle{font-family:var(--disp);font-weight:300;line-height:1.1}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;transition:all .3s var(--ease)}
+    .btn-o{border:1px solid var(--acc);color:var(--acc)}
+    .btn-o:hover{background:var(--acc);color:var(--bg)}
+    .btn-s{background:var(--acc);color:var(--bg)}
+    .btn-s:hover{background:var(--acc2);color:#fff}
+    .btn svg{transition:transform .3s var(--ease)}
+    .btn:hover svg{transform:translateX(4px)}
+    .rev{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+    .rev.vis{opacity:1;transform:none}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+    /* NAV */
+    #nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--navh);display:flex;align-items:center;transition:background .4s,box-shadow .4s}
+    #nav.sc{background:rgba(1,1,24,.92);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--bord)}
+    #nav .container{width:100%;display:flex;align-items:center;justify-content:space-between}
+    .nlogo{font-family:var(--disp);font-size:1.25rem}
+    .nlogo span{color:var(--acc2)}
+    .nlinks{display:flex;align-items:center;gap:2.5rem}
+    .nlinks a{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);transition:color .25s;position:relative}
+    .nlinks a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+    .nlinks a:hover,.nlinks a.act{color:var(--txt)}
+    .nlinks a:hover::after,.nlinks a.act::after{transform:scaleX(1)}
+    .ncta{padding:.55rem 1.4rem;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;border:1px solid var(--acc);color:var(--acc);transition:all .25s}
+    .ncta:hover{background:var(--acc);color:var(--bg)}
+    .ham{display:none;flex-direction:column;gap:5px;padding:4px}
+    .ham span{display:block;width:24px;height:1px;background:var(--txt);transition:transform .3s,opacity .3s}
+    .ham.op span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+    .ham.op span:nth-child(2){opacity:0}
+    .ham.op span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+    .mob{display:none;position:fixed;inset:0;z-index:99;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;opacity:0;transition:opacity .4s}
+    .mob.op{opacity:1}
+    .mob a{font-family:var(--disp);font-size:2.5rem;font-weight:300;color:var(--muted);transition:color .25s}
+    .mob a:hover{color:var(--acc)}
+
+    /* HERO */
+    #hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden}
+    .hbg{position:absolute;inset:0}
+    .hbg img{width:100%;height:100%;object-fit:cover}
+    .hov{position:absolute;inset:0;background:linear-gradient(to top,rgba(1,1,24,.95) 0%,rgba(1,1,24,.4) 50%,rgba(1,1,24,.15) 100%);z-index:1}
+    .hcont{position:relative;z-index:2;padding:0 0 8vh;width:100%}
+    .hcont .container{display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:3rem}
+    .hey{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--acc);margin-bottom:1rem;opacity:0;animation:fu .8s .3s var(--ease) forwards}
+    .ht{font-family:var(--disp);font-size:clamp(3.5rem,8vw,7rem);font-weight:300;line-height:1;opacity:0;animation:fu .9s .5s var(--ease) forwards}
+    .ht em{font-style:italic;color:var(--acc2)}
+    .hsub{margin-top:1.5rem;font-size:1rem;color:var(--muted);max-width:420px;opacity:0;animation:fu .9s .7s var(--ease) forwards}
+    .hact{display:flex;gap:1rem;margin-top:2.5rem;opacity:0;animation:fu .9s .9s var(--ease) forwards}
+    .hscr{display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fi 1s 1.4s var(--ease) forwards}
+    .hscr span{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
+    .sline{width:1px;height:60px;background:linear-gradient(to bottom,var(--acc),transparent);animation:sp 2s infinite}
+    @keyframes fu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @keyframes fi{from{opacity:0}to{opacity:1}}
+    @keyframes sp{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* ABOUT */
+    #about{padding:140px 0;border-top:1px solid var(--bord)}
+    .agrid{display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+    .awrap{position:relative}
+    .aimg{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(20%);transition:filter .4s}
+    .aimg:hover{filter:grayscale(0%)}
+    .aacc{position:absolute;bottom:-2rem;right:-2rem;width:200px;height:200px;border:1px solid var(--acc2);z-index:-1}
+    .atit{font-size:clamp(2rem,4vw,3.5rem)}
+    .abod{margin-top:1.5rem;color:var(--muted);font-size:.95rem}
+    .abod p+p{margin-top:1rem}
+    .astats{display:flex;gap:3rem;margin:3rem 0;padding:2rem 0;border-top:1px solid var(--bord);border-bottom:1px solid var(--bord)}
+    .snum{font-family:var(--disp);font-size:3rem;font-weight:300;color:var(--acc2);line-height:1}
+    .slbl{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+    .asig{font-family:var(--disp);font-style:italic;font-size:1.6rem;color:var(--acc);margin-top:2rem}
+
+    /* SERVICES */
+    #services{padding:140px 0;background:var(--surf);border-top:1px solid var(--bord);border-bottom:1px solid var(--bord)}
+    .shdr{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:flex-end;margin-bottom:5rem}
+    .stit{font-size:clamp(2.5rem,5vw,4rem)}
+    .sdesc{color:var(--muted);font-size:.95rem}
+    .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--bord)}
+    .sc{background:var(--bg);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:background .4s}
+    .sc::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--acc2);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+    .sc:hover{background:var(--surf)}
+    .sc:hover::before{transform:scaleX(1)}
+    .sico{width:48px;height:48px;margin-bottom:2rem;color:var(--acc)}
+    .sno{position:absolute;top:2rem;right:2rem;font-family:var(--disp);font-size:4rem;font-weight:300;color:var(--bord);line-height:1;transition:color .4s}
+    .sc:hover .sno{color:rgba(85,23,210,.15)}
+    .snm{font-family:var(--disp);font-size:1.5rem;margin-bottom:1rem}
+    .stxt{color:var(--muted);font-size:.88rem;line-height:1.8}
+
+    /* PORTFOLIO */
+    #portfolio{padding:140px 0}
+    .phdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+    .ptit{font-size:clamp(2.5rem,5vw,4rem)}
+    .pfilts{display:flex;gap:.5rem;flex-wrap:wrap}
+    .fb{padding:.4rem 1.2rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:1px solid var(--bord);transition:all .25s}
+    .fb.act,.fb:hover{border-color:var(--acc);color:var(--acc)}
+    .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .pi{cursor:pointer;overflow:hidden;position:relative;aspect-ratio:16/9}
+    .pt{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+    .pi:hover .pt{transform:scale(1.06)}
+    .pov{position:absolute;inset:0;background:linear-gradient(to top,rgba(1,1,24,.97) 0%,rgba(1,1,24,.5) 60%,rgba(1,1,24,.2) 100%);opacity:0;transition:opacity .4s;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem}
+    .pi:hover .pov{opacity:1}
+    .ptag{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem}
+    .pnm{font-family:var(--disp);font-size:1.4rem;font-weight:300}
+    .pcl{font-size:.8rem;color:var(--muted);margin-top:.25rem}
+    .pplay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);width:60px;height:60px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:all .3s var(--ease)}
+    .pi:hover .pplay{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+    /* MODAL */
+    .mbk{position:fixed;inset:0;z-index:200;background:rgba(1,1,24,.97);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+    .mbk.op{opacity:1;pointer-events:all}
+    .mdl{width:90vw;max-width:1000px;max-height:90vh;overflow-y:auto;transform:translateY(30px);transition:transform .5s var(--ease)}
+    .mbk.op .mdl{transform:none}
+    .mcl{position:fixed;top:2rem;right:2rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid var(--bord);color:var(--muted);font-size:1.2rem;transition:all .25s;z-index:201}
+    .mcl:hover{border-color:var(--acc);color:var(--acc)}
+    .mvw{position:relative;padding-top:56.25%;background:#000;margin-bottom:2.5rem}
+    .mvw iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+    .mbd{padding:0 .5rem 2rem}
+    .mmeta{display:flex;gap:3rem;padding:1.5rem 0;border-bottom:1px solid var(--bord);margin-bottom:2rem}
+    .mmi{font-size:.8rem}
+    .mmi strong{display:block;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acc2);margin-bottom:.25rem;font-weight:400}
+    .mtt{font-family:var(--disp);font-size:clamp(1.8rem,4vw,3rem);font-weight:300;margin-bottom:1.5rem}
+    .mds{color:var(--muted);line-height:1.9;font-size:.95rem}
+
+    /* VIDEOS YOUTUBE */
+    #blog{padding:140px 0;background:var(--surf);border-top:1px solid var(--bord)}
+    .bhdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+    .btit{font-size:clamp(2rem,4vw,3.5rem)}
+    .bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+    .bcard{overflow:hidden;border:1px solid var(--bord);transition:border-color .3s,transform .4s var(--ease)}
+    .bcard:hover{border-color:var(--acc2);transform:translateY(-6px)}
+    .bvw{position:relative;padding-top:56.25%;background:#000}
+    .bvw iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+    .bbd{padding:1.25rem 1.5rem 1.5rem}
+    .bcat{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc2);margin-bottom:.5rem}
+    .bnm{font-family:var(--disp);font-size:1.2rem;line-height:1.3}
+
+    /* CONTACT */
+    #contact{padding:140px 0;border-top:1px solid var(--bord)}
+    .cgrid{display:grid;grid-template-columns:1fr 1.4fr;gap:8rem;align-items:flex-start}
+    .ctit{font-size:clamp(2.5rem,5vw,4rem);margin-bottom:2rem}
+    .cinfo{margin-top:3rem}
+    .cii{display:flex;gap:1.25rem;align-items:flex-start;padding:1.25rem 0;border-bottom:1px solid var(--bord)}
+    .cico{width:40px;height:40px;border:1px solid var(--bord);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--acc)}
+    .cilbl{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+    .civ{font-size:.9rem}
+    .csoc{display:flex;gap:1rem;margin-top:2.5rem}
+    .sbtn{width:44px;height:44px;border:1px solid var(--bord);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .25s}
+    .sbtn:hover{border-color:var(--acc);color:var(--acc)}
+    .cform{display:flex;flex-direction:column;gap:1.25rem}
+    .frow{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    .fg{display:flex;flex-direction:column;gap:.5rem}
+    .flbl{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+    .fi,.fsel,.fta{background:transparent;border:none;border-bottom:1px solid var(--bord);color:var(--txt);font-family:var(--body);font-size:.9rem;padding:.75rem 0;transition:border-color .25s;outline:none;width:100%}
+    .fsel{appearance:none;cursor:pointer}
+    .fi::placeholder,.fta::placeholder{color:var(--muted)}
+    .fi:focus,.fsel:focus,.fta:focus{border-color:var(--acc)}
+    .fta{resize:vertical;min-height:120px}
+    .fsub{align-self:flex-start;margin-top:.5rem}
+    .fok{display:none;padding:1rem 1.5rem;border:1px solid var(--acc2);color:var(--acc);font-size:.85rem}
+
+    /* FOOTER */
+    footer{padding:3rem 0;border-top:1px solid var(--bord)}
+    .fin{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted)}
+    .flogo{font-family:var(--disp);font-size:1.1rem;color:var(--txt)}
+    .flogo span{color:var(--acc2)}
+    .flinks{display:flex;gap:2rem}
+    .flinks a:hover{color:var(--acc)}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .agrid{grid-template-columns:1fr;gap:4rem}
+      .awrap{max-width:480px}
+      .sgrid{grid-template-columns:repeat(2,1fr)}
+      .shdr{grid-template-columns:1fr}
+      .pgrid{grid-template-columns:repeat(2,1fr)}
+      .cgrid{grid-template-columns:1fr;gap:4rem}
+    }
+    @media(max-width:768px){
+      .nlinks,.ncta{display:none}
+      .ham{display:flex}
+      .hcont .container{grid-template-columns:1fr}
+      .hscr{display:none}
+      .phdr{flex-direction:column;align-items:flex-start;gap:1.5rem}
+      .pgrid{grid-template-columns:1fr}
+      .pfilts{display:none}
+      .astats{flex-wrap:wrap;gap:1.5rem}
+      .sgrid{grid-template-columns:1fr}
+      .bgrid{grid-template-columns:1fr}
+      .frow{grid-template-columns:1fr}
+      .fin{flex-direction:column;gap:1.5rem;text-align:center}
+      .flinks{flex-wrap:wrap;justify-content:center}
+      .cdot,.cring{display:none}
+    }
+  </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section id="hero">
-  <img src="images/fond.jpeg" alt="Adam & Martin Prod" />
-</section>
+  <div class="cdot" id="cdot"></div>
+  <div class="cring" id="cring"></div>
 
-<!-- À PROPOS -->
-<section id="about">
-  <img class="aimg" src="images/2.jpeg" alt="Adam & Martin Prod" />
-</section>
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="container">
+      <a href="#" class="nlogo">Adam &amp; Martin Prod<span>.</span></a>
+      <ul class="nlinks">
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#blog">Nos vidéos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="ncta">Discutons</a>
+      <button class="ham" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
 
-<!-- PORTFOLIO -->
-<section id="portfolio">
-
-  <div class="pi rev" data-category="pub" data-project="0">
-    <img class="pt" src="images/maxresdefault.jpg" alt="Krown Esport" loading="lazy" />
+  <div class="mob" id="mob">
+    <a href="#about"     onclick="closeMob()">À propos</a>
+    <a href="#services"  onclick="closeMob()">Services</a>
+    <a href="#portfolio" onclick="closeMob()">Portfolio</a>
+    <a href="#blog"      onclick="closeMob()">Nos vidéos</a>
+    <a href="#contact"   onclick="closeMob()">Contact</a>
   </div>
 
-  <div class="pi rev d1" data-category="corporate" data-project="1">
-    <img class="pt" src="images/maxresdefaultt.jpg" alt="Stellantis" loading="lazy" />
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hbg">
+      <img src="../images/fond.jpeg" alt="Adam & Martin Prod" />
+    </div>
+    <div class="hov"></div>
+    <div class="hcont">
+      <div class="container">
+        <div>
+          <p class="hey">Vidéastes &amp; Photographes — Colmar</p>
+          <h1 class="ht">Raconter<br /><em>votre histoire</em><br />en images.</h1>
+          <p class="hsub">Films corporate, publicités, captations événementielles... chaque projet est une création unique pensée pour vous.</p>
+          <div class="hact">
+            <a href="#portfolio" class="btn btn-s">Voir nos projets <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="#contact" class="btn btn-o">Nous contacter</a>
+          </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <div class="container">
+      <div class="agrid">
+        <div class="awrap rev">
+          <img class="aimg" src="../images/2.jpeg" alt="Adam & Martin Prod" />
+          <div class="aacc"></div>
+        </div>
+        <div>
+          <p class="lbl rev">À propos</p>
+          <h2 class="dtitle atit rev d1">La vision<br /><em>derrière l'objectif</em></h2>
+          <div class="abod rev d2">
+            <p>Nous concevons des films pensés pour capter l'attention et générer de l'impact. Notre approche allie storytelling cinématographique et exigence technique pour créer des contenus mémorables et performants.</p>
+            <p>Basés à Strasbourg, nous vous accompagnons à chaque étape, quel que soit votre projet. De l'idée à la diffusion, nous travaillons à vos côtés pour donner vie à vos ambitions. Publicités, films corporate, captations d'événements… chaque projet est unique, et mérite une approche sur mesure.</p>
+          </div>
+          <p class="asig rev">Adam &amp; Martin Prod</p>
+          <a href="#contact" class="btn btn-o rev" style="margin-top:2rem">Démarrer un projet <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="shdr">
+        <div>
+          <p class="lbl rev">Prestations</p>
+          <h2 class="dtitle stit rev d1">Ce que nous<br />créons pour vous</h2>
+        </div>
+        <p class="sdesc rev d2">De la conception au rendu final, nous prenons en charge l'intégralité de votre production audiovisuelle avec rigueur et créativité.</p>
+      </div>
+      <div class="sgrid">
+        <div class="sc rev">
+          <span class="sno">01</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="12" width="32" height="24" rx="2"/><path d="M36 20l8-4v16l-8-4"/></svg>
+          <h3 class="snm">Tournage</h3>
+          <p class="stxt">Captation professionnelle multi-caméras, éclairage studio ou lumière naturelle, drone et steadicam. Matériel haut de gamme adapté à chaque situation.</p>
+        </div>
+        <div class="sc rev d1">
+          <span class="sno">02</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 24h32M24 8v32M16 16l16 16M32 16L16 32"/></svg>
+          <h3 class="snm">Montage &amp; Post-prod</h3>
+          <p class="stxt">Editing narratif, étalonnage colorimétrique, sound design, effets visuels et motion design. Rendus aux formats broadcast, web et réseaux sociaux.</p>
+        </div>
+        <div class="sc rev d2">
+          <span class="sno">03</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M24 4L4 16v16l20 12 20-12V16L24 4z"/></svg>
+          <h3 class="snm">Films Corporate</h3>
+          <p class="stxt">Films institutionnels, présentations d'entreprise, témoignages clients et vidéos internes. Mise en valeur de votre ADN et de vos équipes.</p>
+        </div>
+        <div class="sc rev">
+          <span class="sno">04</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="24" cy="24" r="10"/><path d="M24 4v8M24 36v8M44 24h-8M12 24H4M38.1 9.9l-5.6 5.6M15.5 32.5l-5.6 5.6M38.1 38.1l-5.6-5.6M15.5 15.5l-5.6-5.6"/></svg>
+          <h3 class="snm">Publicités &amp; Spots</h3>
+          <p class="stxt">Spots TV et digitaux, vidéos de marque, campagnes social media. Conception créative, casting, écriture du script et direction artistique.</p>
+        </div>
+        <div class="sc rev d1">
+          <span class="sno">05</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 40V20l16-12 16 12v20M20 40V28h8v12"/></svg>
+          <h3 class="snm">Événements</h3>
+          <p class="stxt">Mariages, conférences, concerts, séminaires. Captation en temps réel, régie vidéo live, aftermovies et résumés événementiels de qualité cinéma.</p>
+        </div>
+        <div class="sc rev d2">
+          <span class="sno">06</span>
+          <svg class="sico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="4" y="10" width="40" height="30" rx="3"/><circle cx="24" cy="25" r="8"/><circle cx="24" cy="25" r="4"/><path d="M17 10l3-5h8l3 5"/><circle cx="38" cy="17" r="2" fill="currentColor"/></svg>
+          <h3 class="snm">Photographie</h3>
+          <p class="stxt">Reportages photo corporate, portraits professionnels, shooting produit et événementiel. Retouche haut de gamme, livraison rapide en haute résolution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO — grille 3x4, 12 projets + catégorie Format Court -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="phdr">
+        <div>
+          <p class="lbl rev">Portfolio</p>
+          <h2 class="dtitle ptit rev d1">Réalisations</h2>
+        </div>
+        <div class="pfilts rev d2">
+          <button class="fb act" data-filter="all">Tous</button>
+          <button class="fb" data-filter="corporate">Corporate</button>
+          <button class="fb" data-filter="pub">Publicité</button>
+          <button class="fb" data-filter="event">Événement</button>
+          <button class="fb" data-filter="court">Autres</button>
+        </div>
+      </div>
+      <div class="pgrid">
+
+        <!-- Ligne 1 — projets originaux -->
+        <div class="pi rev" data-category="pub" data-project="0">
+          <img class="pt" src="../images/maxresdefault.jpg" alt="Krown Esport" loading="lazy" />
+          <div class="pov"><span class="ptag">Publicité</span><h3 class="pnm">Veste polaire Krown Esport</h3><p class="pcl">Client : Krown Esport · 2025</p></div>
+          <div class="pplay"><svg width="20" height="20" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d1" data-category="corporate" data-project="1">
+          <img class="pt" src="../images/maxresdefaultt.jpg" alt="Stellantis" loading="lazy" />
+          <div class="pov"><span class="ptag">Corporate</span><h3 class="pnm">L'atelier bacs batteries</h3><p class="pcl">Client : Stellantis France · 2024</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d2" data-category="pub" data-project="2">
+          <img class="pt" src="../images/maxresdefaulte.jpg" alt="Volvo C70" loading="lazy" />
+          <div class="pov"><span class="ptag">Publicité</span><h3 class="pnm">Volvo C70</h3><p class="pcl">Client : VOLVO · 2026</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+
+        <!-- Ligne 2 -->
+        <div class="pi rev" data-category="corporate" data-project="3">
+          <img class="pt" src="../images/BT.png" alt="Le Bouton D'or" loading="lazy" />
+          <div class="pov"><span class="ptag">Corporate</span><h3 class="pnm">Le Bouton D'or</h3><p class="pcl">Client : Le Bouton D'or · 2026</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d1" data-category="pub" data-project="4">
+          <img class="pt" src="../images/maxresdefault-2.jpg" alt="PUB CANON R50" loading="lazy" />
+          <div class="pov"><span class="ptag">Publicité</span><h3 class="pnm">PUB CANON R50</h3><p class="pcl">Client : Canon · 2024</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d2" data-category="event" data-project="5">
+          <img class="pt" src="../images/LONER.png" alt="This Old House" loading="lazy" />
+          <div class="pov"><span class="ptag">Événement</span><h3 class="pnm">This Old House</h3><p class="pcl">Client : Loner Deer · 2026</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+
+        <!-- Ligne 3 — nouveaux projets (remplacez les src et data-project par vos vraies données) -->
+        <div class="pi rev" data-category="court" data-project="6">
+          <img class="pt" src="../images/1.JPEG" alt="Format court 1" loading="lazy" />
+          <div class="pov"><span class="ptag">Format Court</span><h3 class="pnm">COLAB DEHANCER</h3><p class="pcl">Client : DEHANCER · 2025</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d1" data-category="event" data-project="7">
+          <img class="pt" src="../images/helmet.jpg" alt="HELMET" loading="lazy" />
+          <div class="pov"><span class="ptag">Événement</span><h3 class="pnm">HELMET</h3><p class="pcl">Client :  · 2025</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d2" data-category="court" data-project="8">
+          <img class="pt" src="../images/biche.jpg" alt="La fôret d'a coté" loading="lazy" />
+          <div class="pov"><span class="ptag">Autres</span><h3 class="pnm">La fôret d'a coté</h3><p class="pcl">Client :  · 2025</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+
+        <!-- Ligne 4 -->
+        <div class="pi rev" data-category="event" data-project="9">
+          <img class="pt" src="../images/maxresdefault copie.jpg" alt="Événement 2" loading="lazy" />
+          <div class="pov"><span class="ptag">Événement</span><h3 class="pnm">Mullein Scent</h3><p class="pcl">Client : LONER DEER · 2026</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d1" data-category="event" data-project="10">
+          <img class="pt" src="../images/MB.png" alt="Format court 3" loading="lazy" />
+          <div class="pov"><span class="ptag">Événement</span><h3 class="pnm">MB RACE</h3><p class="pcl">Client : MB RACE · 2021</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+        <div class="pi rev d2" data-category="corporate" data-project="11">
+          <img class="pt" src="../images/CHCO.png" alt="RITTER" loading="lazy" />
+          <div class="pov"><span class="ptag">Corporate</span><h3 class="pnm">Chocolaterie RITTER</h3><p class="pcl">Client : Chocolaterie RITTER · 2025</p></div>
+          <div class="pplay"><svg width="16" height="16" viewBox="0 0 20 20" fill="white"><path d="M7 4l10 6-10 6V4z"/></svg></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="mbk" id="mbk">
+    <button class="mcl" id="mcl">✕</button>
+    <div class="mdl">
+      <div class="mvw"><iframe id="mif" src="" title="Vidéo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+      <div class="mbd">
+        <div class="mmeta">
+          <div class="mmi"><strong>Client</strong><span id="mclient">—</span></div>
+          <div class="mmi"><strong>Catégorie</strong><span id="mcat">—</span></div>
+          <div class="mmi"><strong>Date</strong><span id="mdate">—</span></div>
+        </div>
+        <h2 class="mtt" id="mtitle"></h2>
+        <p class="mds" id="mdesc"></p>
+      </div>
+    </div>
   </div>
 
-  <div class="pi rev d2" data-category="pub" data-project="2">
-    <img class="pt" src="images/maxresdefaulte.jpg" alt="Volvo C70" loading="lazy" />
-  </div>
+  <!-- NOS VIDÉOS YOUTUBE -->
+  <section id="blog">
+    <div class="container">
+      <div class="bhdr">
+        <div>
+          <p class="lbl rev">YouTube</p>
+          <h2 class="dtitle btit rev d1">Nos vidéos</h2>
+        </div>
+        <a href="https://www.youtube.com/@AdamSCHMITT-k5x/videos" target="_blank" rel="noopener" class="btn btn-o rev d2">
+          Notre chaîne <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="bgrid">
+        <article class="bcard rev">
+          <div class="bvw">
+            <iframe src="https://www.youtube.com/embed/PUSZ-4YeS50" title="Krown Esport" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="bbd">
+            <p class="bcat">Publicité</p>
+            <h3 class="bnm">Veste polaire Krown Esport — Trailer officiel</h3>
+          </div>
+        </article>
+        <article class="bcard rev d1">
+          <div class="bvw">
+            <iframe src="https://www.youtube.com/embed/6rj1TRZc0YY" title="Vidéo 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="bbd"><p class="bcat">Corporate</p><h3 class="bnm">Titre de votre 2e vidéo</h3></div>
+        </article>
+        <article class="bcard rev d2">
+          <div class="bvw">
+            <iframe src="https://www.youtube.com/embed/DLmVW8m5ecc" title="Vidéo 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="bbd"><p class="bcat">Événement</p><h3 class="bnm">Titre de votre 3e vidéo</h3></div>
+        </article>
+      </div>
+    </div>
+  </section>
 
-  <div class="pi rev" data-category="corporate" data-project="3">
-    <img class="pt" src="images/BT.png" alt="Le Bouton D'or" loading="lazy" />
-  </div>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="cgrid">
+        <div>
+          <p class="lbl rev">Contact</p>
+          <h2 class="dtitle ctit rev d1">Parlons de<br /><em>votre projet</em></h2>
+          <p class="rev d2" style="color:var(--muted);font-size:.9rem;">Disponibles pour des projets en France et à l'international. Réponse sous 24h.</p>
+          <div class="cinfo rev d3">
+            <div class="cii">
+              <div class="cico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div><p class="cilbl">Email</p><a class="civ" href="mailto:martin.bachschmidt@gmail.com">martin.bachschmidt@gmail.com</a></div>
+            </div>
+            <div class="cii">
+              <div class="cico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.2 2 2 0 012.2 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/></svg></div>
+              <div><p class="cilbl">Téléphone</p><a class="civ" href="tel:+33612345678">+33 6 76 06 02 20</a></div>
+            </div>
+            <div class="cii">
+              <div class="cico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div><p class="cilbl">Localisation</p><span class="civ">Colmar</span></div>
+            </div>
+          </div>
+          <div class="csoc rev">
+            <a href="https://www.youtube.com/@AdamSCHMITT-k5x/videos" target="_blank" rel="noopener" class="sbtn" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-.1C16.8 3 12 3 12 3s-4.8 0-7.3.3c-.6.1-1.9.1-3 1.2-.9.8-1.2 2.8-1.2 2.8S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 21.8 12 21.8s4.8 0 7.3-.3c.6-.1 1.9-.1 3-1.2.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1c0-2.3-.3-4.6-.3-4.6zM9.7 14.8V8.6l6.6 3.1-6.6 3.1z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/adam_schmitt.yt/" target="_blank" rel="noopener" class="sbtn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="rev">
+          <form class="cform" id="cform" novalidate>
+            <div class="frow">
+              <div class="fg"><label class="flbl" for="fn">Prénom</label><input class="fi" type="text" id="fn" placeholder="Jean" required /></div>
+              <div class="fg"><label class="flbl" for="ln">Nom</label><input class="fi" type="text" id="ln" placeholder="Dupont" required /></div>
+            </div>
+            <div class="fg"><label class="flbl" for="em">Email</label><input class="fi" type="email" id="em" placeholder="jean@exemple.fr" required /></div>
+            <div class="fg"><label class="flbl" for="ph">Téléphone</label><input class="fi" type="tel" id="ph" placeholder="+33 6 ..." /></div>
+            <div class="fg">
+              <label class="flbl" for="sv">Type de projet</label>
+              <select class="fsel" id="sv">
+                <option value="">— Sélectionner —</option>
+                <option>Film Corporate</option>
+                <option>Publicité / Spot</option>
+                <option>Événement</option>
+                <option>Photographie</option>
+                <option>Autres</option>
+                <option>Montage uniquement</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="fg"><label class="flbl" for="msg">Décrivez votre projet</label><textarea class="fta" id="msg" placeholder="Budget approximatif, délais, objectifs…" required></textarea></div>
+            <button type="submit" class="btn btn-s fsub">Envoyer le message <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </form>
+          <div class="fok" id="fok">✓ &nbsp; Message envoyé ! Nous vous répondons sous 24h.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="pi rev d1" data-category="pub" data-project="4">
-    <img class="pt" src="images/maxresdefault-2.jpg" alt="PUB CANON R50" loading="lazy" />
-  </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="fin">
+        <a href="#" class="flogo">Adam &amp; Martin Prod<span>.</span></a>
+        <p>© 2026 Adam &amp; Martin Prod. Tous droits réservés.</p>
+        <ul class="flinks">
+         li><a href="mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 
-  <div class="pi rev d2" data-category="event" data-project="5">
-    <img class="pt" src="images/LONER.png" alt="This Old House" loading="lazy" />
-  </div>
+  <script>
+  /* ─── DONNÉES PROJETS ─────────────────────────────────────────────────────
+     Projets 0-5 : originaux
+     Projets 6-11 : nouveaux — remplacez videoId, title, client, date, desc
+  ─────────────────────────────────────────────────────────────────────────── */
+  const projects = [
+    // ── Originaux ──
+    { title:"Veste polaire Krown Esport", client:"Krown Esport", category:"Publicité", date:"2025", videoId:"yhM9DSraeB8?si=c8iVu4nAPVZbK_KA", desc:"Trailer officiel pour la veste polaire Krown Esport. Production complète : tournage, montage et étalonnage." },
+    { title:"L'atelier bacs batteries", client:"Stellantis", category:"Corporate", date:"2025", videoId:"byCxBONGAg8?si=ZbKa_J7a6Lv2xaT6", desc:"Immersion dans l'atelier bacs batteries de l'usine de Mulhouse." },
+    { title:"VOLVO C70", client:"VOLVO", category:"Publicité", date:"2026", videoId:"sQn0ukupQhA", desc:"Publicité fictive pour Volvo." },
+    { title:"Le Bouton D'or", client:"Le Bouton D'or", category:"Corporate", date:"2026", videoId:"ibNrMGpi9QU", desc:"Vidéo promotionnelle pour le restaurant." },
+    { title:"PUB CANON R50", client:"Canon", category:"Publicité", date:"2024", videoId:"rfGs8Zdu_k8?si=egbRPv9nOrmNn8Zw", desc:"Pub fictive dynamique pour le Canon R50, mettant en avant ses capacités photo/vidéo à travers une mise en scène créative et cinématographique." },
+    { title:"This Old House", client:"Loner Deer", category:"Événement", date:"2026", videoId:"rf8n82b5eVg", desc:"Live Session." },
 
-  <div class="pi rev" data-category="court" data-project="6">
-    <img class="pt" src="images/1.JPEG" alt="COLAB DEHANCER" loading="lazy" />
-  </div>
+    // ── Nouveaux — remplacez VOTRE_ID_YT par l'ID de la vidéo YouTube ──
+    { title:"Titre du format court 1", client:"DEHANCER", category:"Format Court", date:"2025", videoId:"KzV8LxtqC0w?feature=share", desc:"Réel en collaboration à but de promotion pour Dehancer" },
+    { title:"HELMET", client:"", category:"Événement", date:"2025", videoId:"0XOxlct1IsM", desc:"HELMET est un court métrage réalisé en seulement 24H." },
+    { title:"La fôret d'à coté", client:"", category:"Corporate", date:"2023", videoId:"zw0m7isX-0I", desc:"Film animalier." },
+    { title:"Mullein Scent", client:"LONER DEER", category:"Événement", date:"2026", videoId:"IebRCd8GHR8?si=eh_fY6mmCMQHxKDn", desc:"CLIP vidéo." },
+    { title:"MB RACE", client:"MB RACE", category:"Autres", date:"2021", videoId:"mx9VN1NnKzs", desc:"Vidéo promotionelle et after movie pour la course MB RACE" },
+    { title:"CHOCOLATERIE RITTER", client:"CHOCOLATERIE RITTER", category:"Corporate", date:"2025", videoId:"1vu1jZzWurs", desc:"Vidéo pour la chocolaterie ritter à pfaffenheim pour leurs portes ouvertes et leur mise en avant." },
+  ];
 
-  <div class="pi rev d1" data-category="event" data-project="7">
-    <img class="pt" src="images/helmet.jpg" alt="HELMET" loading="lazy" />
-  </div>
+  /* Navbar */
+  const navbar = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('sc', window.scrollY > 40);
+    let cur = '';
+    ['about','services','portfolio','blog','contact'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) cur = id;
+    });
+    document.querySelectorAll('.nlinks a').forEach(a => a.classList.toggle('act', a.getAttribute('href') === '#'+cur));
+  }, {passive:true});
 
-  <div class="pi rev d2" data-category="court" data-project="8">
-    <img class="pt" src="images/biche.jpg" alt="La forêt d'à côté" loading="lazy" />
-  </div>
+  /* Mobile menu */
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mob');
+  ham.addEventListener('click', () => {
+    if (mob.classList.contains('op')) { closeMob(); return; }
+    mob.style.display = 'flex';
+    requestAnimationFrame(() => mob.classList.add('op'));
+    ham.classList.add('op');
+    document.body.style.overflow = 'hidden';
+  });
+  function closeMob() {
+    mob.classList.remove('op'); ham.classList.remove('op');
+    document.body.style.overflow = '';
+    setTimeout(() => mob.style.display = 'none', 400);
+  }
 
-  <div class="pi rev" data-category="event" data-project="9">
-    <img class="pt" src="images/maxresdefault-copie.jpg" alt="Mullein Scent" loading="lazy" />
-  </div>
+  /* Scroll reveal */
+  new IntersectionObserver((es) => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.1})
+    .observe && document.querySelectorAll('.rev').forEach(el =>
+      new IntersectionObserver((es) => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.1}).observe(el)
+    );
 
-  <div class="pi rev d1" data-category="event" data-project="10">
-    <img class="pt" src="images/MB.png" alt="MB RACE" loading="lazy" />
-  </div>
+  /* Filtres */
+  document.querySelectorAll('.fb').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.fb').forEach(x => x.classList.remove('act'));
+    b.classList.add('act');
+    const f = b.dataset.filter;
+    document.querySelectorAll('.pi').forEach(i => {
+      const show = f === 'all' || i.dataset.category === f;
+      i.style.opacity = show ? '1' : '0.15';
+      i.style.transform = show ? '' : 'scale(.97)';
+      i.style.pointerEvents = show ? '' : 'none';
+    });
+  }));
 
-  <div class="pi rev d2" data-category="corporate" data-project="11">
-    <img class="pt" src="images/CHCO.png" alt="Chocolaterie RITTER" loading="lazy" />
-  </div>
+  /* Modal */
+  const mbk = document.getElementById('mbk');
+  const mif = document.getElementById('mif');
+  document.querySelectorAll('.pi').forEach(i => i.addEventListener('click', () => {
+    const p = projects[+i.dataset.project]; if(!p) return;
+    document.getElementById('mtitle').textContent = p.title;
+    document.getElementById('mclient').textContent = p.client;
+    document.getElementById('mcat').textContent = p.category;
+    document.getElementById('mdate').textContent = p.date;
+    document.getElementById('mdesc').textContent = p.desc;
+    mif.src = 'https://www.youtube.com/embed/'+p.videoId+'?autoplay=1&rel=0';
+    mbk.classList.add('op'); document.body.style.overflow = 'hidden';
+  }));
+  function closeModal() { mbk.classList.remove('op'); document.body.style.overflow = ''; setTimeout(() => mif.src='', 400); }
+  document.getElementById('mcl').addEventListener('click', closeModal);
+  mbk.addEventListener('click', e => { if(e.target===mbk) closeModal(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 
-</section>
+  /* Formulaire */
+  document.getElementById('cform').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.fsub');
+    btn.textContent = 'Envoi…'; btn.disabled = true;
+    setTimeout(() => { this.style.display='none'; document.getElementById('fok').style.display='block'; }, 1200);
+  });
 
+  /* Curseur */
+  const cdot=document.getElementById('cdot'), cring=document.getElementById('cring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cdot.style.left=mx+'px'; cdot.style.top=my+'px'; });
+  (function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; cring.style.left=rx+'px'; cring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+  document.querySelectorAll('a,button,.pi,.bcard').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+  });
+  </script>
 </body>
 </html>
