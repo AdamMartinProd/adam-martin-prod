@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentions légales — Adam &amp; Martin Prod</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#010118; --surf:#040431; --bord:rgba(255,255,255,.08);
+      --txt:#e8e2d9; --muted:rgba(255,255,255,.55);
+      --acc:#ffffff; --acc2:#5517d2;
+      --disp:'Cormorant Garamond',Georgia,serif;
+      --body:'DM Sans',sans-serif;
+      --ease:cubic-bezier(.16,1,.3,1);
+      --maxw:860px; --navh:72px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--txt);font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:var(--bg)}
+    ::-webkit-scrollbar-thumb{background:var(--acc2);border-radius:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 2rem}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--navh);display:flex;align-items:center;background:rgba(1,1,24,.92);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--bord)}
+    nav .container{max-width:1280px;width:100%;display:flex;align-items:center;justify-content:space-between}
+    .nlogo{font-family:var(--disp);font-size:1.25rem}
+    .nlogo span{color:var(--acc2)}
+    .nback{display:inline-flex;align-items:center;gap:.6rem;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+    .nback:hover{color:var(--acc)}
+    .nback svg{transition:transform .3s var(--ease)}
+    .nback:hover svg{transform:translateX(-4px)}
+
+    /* HERO */
+    .hero{padding:calc(var(--navh) + 80px) 0 60px;border-bottom:1px solid var(--bord)}
+    .htag{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--acc2);margin-bottom:1rem;opacity:0;animation:fu .7s .2s var(--ease) forwards}
+    .htitle{font-family:var(--disp);font-size:clamp(3rem,7vw,5.5rem);font-weight:300;line-height:1.05;opacity:0;animation:fu .8s .35s var(--ease) forwards}
+    .htitle em{font-style:italic;color:var(--acc2)}
+    .hdate{margin-top:1.25rem;font-size:.8rem;letter-spacing:.1em;color:var(--muted);opacity:0;animation:fu .8s .5s var(--ease) forwards}
+    @keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+    /* CONTENT */
+    .content{padding:70px 0 120px}
+    .block{margin-bottom:3.5rem;opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .block.vis{opacity:1;transform:none}
+    .block-title{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--bord)}
+    .block-num{font-family:var(--disp);font-size:3.5rem;font-weight:300;color:var(--bord);line-height:1;flex-shrink:0}
+    .block-label{font-family:var(--disp);font-size:1.6rem;font-weight:300}
+    .block-body{font-size:.9rem;color:var(--muted);line-height:1.9}
+    .block-body p+p{margin-top:.75rem}
+    .block-body strong{color:var(--txt);font-weight:400}
+    .block-body a{color:var(--acc);border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .25s}
+    .block-body a:hover{border-color:var(--acc)}
+
+    /* INFO CARD */
+    .card{background:var(--surf);border:1px solid var(--bord);padding:2rem 2.5rem;margin-top:1.5rem}
+    .card-row{display:flex;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--bord);font-size:.88rem}
+    .card-row:last-child{border-bottom:none}
+    .card-key{width:160px;flex-shrink:0;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acc2);padding-top:.15rem}
+    .card-val{color:var(--txt)}
+
+    /* FOOTER */
+    footer{padding:2.5rem 0;border-top:1px solid var(--bord)}
+    footer .container{max-width:1280px}
+    .fin{display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--muted)}
+    .flogo{font-family:var(--disp);font-size:1.1rem;color:var(--txt)}
+    .flogo span{color:var(--acc2)}
+
+    @media(max-width:600px){
+      .card-row{flex-direction:column;gap:.25rem}
+      .card-key{width:auto}
+      .fin{flex-direction:column;gap:1rem;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="index.html" class="nlogo">Adam &amp; Martin Prod<span>.</span></a>
+      <a href="index.html" class="nback">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour au site
+      </a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="container">
+      <p class="htag">Informations légales</p>
+      <h1 class="htitle">Mentions<br /><em>légales</em></h1>
+      <p class="hdate">Dernière mise à jour : mars 2026</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container">
+
+      <!-- 01 Éditeur -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">01</span>
+          <h2 class="block-label">Éditeur du site</h2>
+        </div>
+        <div class="block-body">
+          <p>Le présent site est édité par :</p>
+          <div class="card">
+            <div class="card-row"><span class="card-key">Éditeur</span><span class="card-val">Adam Schmitt</span></div>
+            <div class="card-row"><span class="card-key">Responsable publication</span><span class="card-val">Martin Bachschmidt</span></div>
+            <div class="card-row"><span class="card-key">Activité</span><span class="card-val">Adam &amp; Martin Prod — Production audiovisuelle</span></div>
+            <div class="card-row"><span class="card-key">Siège social</span><span class="card-val">10c rue du Raisin, 68240 Kaysersberg Vignoble</span></div>
+            <div class="card-row"><span class="card-key">Téléphone</span><span class="card-val"><a href="tel:+33676060220">+33 6 76 06 02 20</a></span></div>
+            <div class="card-row"><span class="card-key">Email</span><span class="card-val"><a href="mailto:m.bachschmidt@orange.fr">m.bachschmidt@orange.fr</a></span></div>
+            <div class="card-row"><span class="card-key">SIRET</span><span class="card-val">947 621 827 00015</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 Hébergement -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">02</span>
+          <h2 class="block-label">Hébergement</h2>
+        </div>
+        <div class="block-body">
+          <p>Ce site est hébergé par :</p>
+          <p><strong>À compléter</strong> — Nom de l'hébergeur, adresse, site web.</p>
+        </div>
+      </div>
+
+      <!-- 03 Propriété intellectuelle -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">03</span>
+          <h2 class="block-label">Propriété intellectuelle</h2>
+        </div>
+        <div class="block-body">
+          <p>L'ensemble des contenus présents sur ce site (textes, images, vidéos, graphismes, logos, icônes) sont la propriété exclusive d'Adam &amp; Martin Prod, sauf mention contraire.</p>
+          <p>Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans l'autorisation écrite préalable de Martin Bachschmidt.</p>
+        </div>
+      </div>
+
+      <!-- 04 Données personnelles -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">04</span>
+          <h2 class="block-label">Données personnelles</h2>
+        </div>
+        <div class="block-body">
+          <p>Les informations collectées via le formulaire de contact (nom, prénom, email, téléphone) sont utilisées uniquement dans le but de répondre à vos demandes et ne sont en aucun cas transmises à des tiers.</p>
+          <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez-nous à : <a href="mailto:m.bachschmidt@orange.fr">m.bachschmidt@orange.fr</a></p>
+        </div>
+      </div>
+
+      <!-- 05 Cookies -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">05</span>
+          <h2 class="block-label">Cookies</h2>
+        </div>
+        <div class="block-body">
+          <p>Ce site peut utiliser des cookies techniques nécessaires à son bon fonctionnement. Les vidéos intégrées via YouTube peuvent déposer des cookies tiers soumis à la politique de confidentialité de Google.</p>
+          <p>Vous pouvez configurer votre navigateur pour refuser les cookies, ce qui peut affecter certaines fonctionnalités du site.</p>
+        </div>
+      </div>
+
+      <!-- 06 Responsabilité -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">06</span>
+          <h2 class="block-label">Limitation de responsabilité</h2>
+        </div>
+        <div class="block-body">
+          <p>Adam &amp; Martin Prod s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Toutefois, nous ne pouvons garantir l'exactitude, la précision ou l'exhaustivité des informations mises à disposition.</p>
+          <p>Adam &amp; Martin Prod se réserve le droit de corriger, à tout moment et sans préavis, le contenu de ce site.</p>
+        </div>
+      </div>
+
+      <!-- 07 Droit applicable -->
+      <div class="block">
+        <div class="block-title">
+          <span class="block-num">07</span>
+          <h2 class="block-label">Droit applicable</h2>
+        </div>
+        <div class="block-body">
+          <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="fin">
+        <a href="index.html" class="flogo">Adam &amp; Martin Prod<span>.</span></a>
+        <p>© 2026 Adam &amp; Martin Prod. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    new IntersectionObserver((es) => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.1})
+      .observe && document.querySelectorAll('.block').forEach(el =>
+        new IntersectionObserver((es) => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.1}).observe(el)
+      );
+  </script>
+</body>
+</html>
